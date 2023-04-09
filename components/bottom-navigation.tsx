@@ -1,6 +1,6 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MangaList from "./mangaList/manga-list";
+import MangaPage from "./mangaPage/manga-page";
 
 const MainBottomNavigation = createMaterialBottomTabNavigator();
 
@@ -14,7 +14,7 @@ export default function BottomNavigation() {
     >
       <MainBottomNavigation.Screen
         name="MangaListRoute"
-        component={MangaList}
+        component={MangaPage}
         options={{
           tabBarLabel: "Home",
           title: "Home",
@@ -25,7 +25,7 @@ export default function BottomNavigation() {
       />
       <MainBottomNavigation.Screen
         name="FavoritesRoute"
-        component={MangaList}
+        component={MangaPage}
         options={{
           title: "Favorites",
           tabBarLabel: "Favorties",
@@ -40,7 +40,7 @@ export default function BottomNavigation() {
       />
       <MainBottomNavigation.Screen
         name="ProfileRoute"
-        component={MangaList}
+        component={MangaPage}
         options={{
           title: "Home",
           tabBarLabel: "Profile",
