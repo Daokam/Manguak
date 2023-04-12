@@ -8,6 +8,7 @@ import Pages from "./pages";
 export default function MangaList() {
   const [mangasSearch, setMangaSearch] = useState<Manga[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  let mangaCount = 0;
   const base_url = "https://api.mangadex.org";
 
   const onChangeSearch = (query: string) => {
@@ -18,8 +19,9 @@ export default function MangaList() {
     const response = await fetch(
       `${base_url}/manga?title=${title}&includes[]=cover_art&includes[]=author`
     );
-
-    const parsedMangas: Manga[] = parseMangas(await response.json());
+    const mangaJson = await response.json();
+    mangaCount = parseInt(mangaJson["total"]);
+    const parsedMangas: Manga[] = parseMangas(mangaJson);
     setMangaSearch([...parsedMangas]);
   }
 

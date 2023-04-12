@@ -7,9 +7,7 @@ import {
   StatusBar,
 } from "react-native";
 import MangaList from "./manga-list";
-import { Manga } from "../../classes/manga";
 import { Header } from "../header";
-import Pages from "./pages";
 
 export default function MangaPage() {
   return (

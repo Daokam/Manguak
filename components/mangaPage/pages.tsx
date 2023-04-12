@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { IconButton, TextInput } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { IconButton } from "react-native-paper";
+import Button from "./button";
 
 export default function Pages({ numberOfPages }: { numberOfPages: number }) {
-  const currentPage = 1;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const getBackButton = () => {
     if (currentPage != 1) {
@@ -36,13 +36,25 @@ export default function Pages({ numberOfPages }: { numberOfPages: number }) {
     }
   };
 
+  const getPageButtons = () => {
+    const pageButtons = [];
+    for (let i = 1; i < 6; i++) {
+      pageButtons.push(
+        <Button
+          selected={i == currentPage}
+          title={i.toString()}
+          onPress={() => setCurrentPage(i)}
+        ></Button>
+      );
+    }
+    return pageButtons;
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.left}>{getBackButton()}</View>
 
-      <View style={styles.currentPage}>
-        <Text style={{ color: "#15EA4A" }}>{currentPage}</Text>
-      </View>
+      <View style={styles.pageArea}>{getPageButtons()}</View>
 
       <View style={styles.right}>{getForwardButton()}</View>
     </View>
@@ -58,23 +70,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  currentPage: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
+  pageArea: {
+    flex: 8,
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-evenly",
   },
   left: {
-    flex: 2,
+    flex: 1,
   },
   backButton: {},
 
   right: {
-    flex: 2,
+    flex: 1,
   },
   forwardButton: {
     alignSelf: "flex-end",
+  },
+  pageButton: {
+    height: 40,
+    width: 40,
+    borderRadius: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#15EA4A",
   },
 });
