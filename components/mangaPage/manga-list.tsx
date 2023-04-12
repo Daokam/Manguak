@@ -2,50 +2,12 @@ import React, { useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import MangaItem from "./manga-item";
 import { Manga } from "../../classes/manga";
-import { Searchbar } from "react-native-paper";
 import Pages from "./pages";
+import MangaSearch from "./manga-search";
 
 export default function MangaList() {
   const [mangasSearch, setMangaSearch] = useState<Manga[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
-  let mangaCount = 0;
-  const base_url = "https://api.mangadex.org";
-
-  const onChangeSearch = (query: string) => {
-    setSearchQuery(query);
-  };
-
-  async function searchManga(title: string) {
-    const response = await fetch(
-      `${base_url}/manga?title=${title}&includes[]=cover_art&includes[]=author`
-    );
-    const mangaJson = await response.json();
-    mangaCount = parseInt(mangaJson["total"]);
-    const parsedMangas: Manga[] = parseMangas(mangaJson);
-    setMangaSearch([...parsedMangas]);
-  }
-
-  const parseMangas = (mangas: any): Manga[] => {
-    const parsedMangas: Manga[] = [];
-    for (const manga of mangas["data"]) {
-      const id = manga["id"];
-      const title = manga["attributes"]["title"]["en"];
-      let author = "";
-      const description = manga["attributes"]["description"]["en"];
-      let cover_id = "";
-      for (const cover of manga["relationships"]) {
-        if (cover["type"] == "cover_art") {
-          cover_id = cover["attributes"]["fileName"];
-        }
-        if (cover["type"] == "author") {
-          author = cover["attributes"]["name"];
-        }
-      }
-
-      parsedMangas.push(new Manga(id, title, author, description, cover_id));
-    }
-    return parsedMangas;
-  };
+  const [mangaCount, setMangaCount] = useState(0);
 
   const getPageArea = () => {
     if (mangasSearch == null || mangasSearch.length == 0) {
@@ -53,7 +15,7 @@ export default function MangaList() {
     } else {
       return (
         <View style={styles.page}>
-          {<Pages numberOfPages={mangasSearch.length}></Pages>}
+          {<Pages numberOfPages={Math.ceil(mangaCount / 10.0)}></Pages>}
         </View>
       );
     }
@@ -61,15 +23,11 @@ export default function MangaList() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.search}>
-        <Searchbar
-          style={{ backgroundColor: "white" }}
-          placeholder="Search"
-          onSubmitEditing={() => searchManga(searchQuery)}
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </View>
+      <MangaSearch
+        setMangaSearch={setMangaSearch}
+        setMangaCount={setMangaCount}
+        mangaCount={mangaCount}
+      ></MangaSearch>
       <View style={styles.listArea}>
         <View style={styles.list}>
           <FlatList
@@ -92,10 +50,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     display: "flex",
-  },
-  search: {
-    flex: 1.2,
-    backgroundColor: "#2A2525",
   },
   listArea: {
     flex: 9,

@@ -41,6 +41,7 @@ export default function Pages({ numberOfPages }: { numberOfPages: number }) {
     for (let i = 1; i < 6; i++) {
       pageButtons.push(
         <Button
+          key={"uid" + i}
           selected={i == currentPage}
           title={i.toString()}
           onPress={() => setCurrentPage(i)}
