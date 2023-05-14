@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useState } from "react";
 import { Manga } from "../../classes/manga";
 import { StyleSheet, View } from "react-native";
 import { Searchbar } from "react-native-paper";
@@ -7,10 +7,12 @@ export default function MangaSearch({
   setMangaSearch,
   setMangaCount,
   mangaCount,
+  pageOffset,
 }: {
   setMangaSearch: any;
   setMangaCount: any;
   mangaCount: number;
+  pageOffset: number;
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   const base_url = "https://api.mangadex.org";
@@ -22,8 +24,9 @@ export default function MangaSearch({
   async function searchManga(title: string) {
     console.log("searching for ");
     const response = await fetch(
-      `${base_url}/manga?title=${title}&includes[]=cover_art&includes[]=author`
+      `${base_url}/manga?title=${title}&includes[]=cover_art&includes[]=author&limit=10&offset=${pageOffset}`
     );
+
     const mangaJson = await response.json();
     setMangaCount(parseInt(mangaJson["total"]));
     const parsedMangas: Manga[] = parseMangas(mangaJson);

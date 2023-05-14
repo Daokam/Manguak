@@ -3,11 +3,17 @@ import { StyleSheet, View } from "react-native";
 import { IconButton } from "react-native-paper";
 import Button from "./button";
 
-export default function Pages({ numberOfPages }: { numberOfPages: number }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
+export default function Pages({
+  numberOfPages,
+  changeSearchOffset,
+  currentOffset,
+}: {
+  numberOfPages: number;
+  changeSearchOffset: any;
+  currentOffset: number;
+}) {
   const getBackButton = () => {
-    if (currentPage != 1) {
+    if (currentOffset != 0) {
       return (
         <IconButton
           icon="arrow-left"
@@ -21,7 +27,7 @@ export default function Pages({ numberOfPages }: { numberOfPages: number }) {
   };
 
   const getForwardButton = () => {
-    if (currentPage != numberOfPages) {
+    if (currentOffset + 1 != numberOfPages) {
       return (
         <IconButton
           icon="arrow-right"
@@ -42,9 +48,9 @@ export default function Pages({ numberOfPages }: { numberOfPages: number }) {
       pageButtons.push(
         <Button
           key={"uid" + i}
-          selected={i == currentPage}
+          selected={i == currentOffset + 1}
           title={i.toString()}
-          onPress={() => setCurrentPage(i)}
+          onPress={() => changeSearchOffset(i - 1)}
         ></Button>
       );
     }

@@ -8,6 +8,7 @@ import MangaSearch from "./manga-search";
 export default function MangaList() {
   const [mangasSearch, setMangaSearch] = useState<Manga[]>([]);
   const [mangaCount, setMangaCount] = useState(0);
+  const [offset, changePageOffset] = useState(0);
 
   const getPageArea = () => {
     if (mangasSearch == null || mangasSearch.length == 0) {
@@ -15,7 +16,13 @@ export default function MangaList() {
     } else {
       return (
         <View style={styles.page}>
-          {<Pages numberOfPages={Math.ceil(mangaCount / 10.0)}></Pages>}
+          {
+            <Pages
+              currentOffset={offset}
+              changeSearchOffset={changePageOffset}
+              numberOfPages={Math.ceil(mangaCount / 10.0)}
+            ></Pages>
+          }
         </View>
       );
     }
@@ -24,6 +31,7 @@ export default function MangaList() {
   return (
     <View style={styles.container}>
       <MangaSearch
+        pageOffset={offset}
         setMangaSearch={setMangaSearch}
         setMangaCount={setMangaCount}
         mangaCount={mangaCount}
