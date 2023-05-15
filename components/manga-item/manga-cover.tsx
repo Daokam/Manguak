@@ -13,7 +13,7 @@ export default function MangaCover({ imgSrc }: { imgSrc: string }) {
     if (loading) {
       return (
         <View style={styles.loading}>
-          <ActivityIndicator size="large" color="#15EA4A" />
+          <ActivityIndicator size="large" color="#47ff75" />
         </View>
       );
     } else {

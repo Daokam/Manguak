@@ -9,12 +9,7 @@ export const Header = (prop: { title: string; reload: Function }) => {
         <Text style={styles.title}>{prop.title}</Text>
       </View>
       <View style={styles.rightArea}>
-        <IconButton
-          icon="reload"
-          iconColor="#15EA4A"
-          size={40}
-          onPress={() => prop.reload()}
-        ></IconButton>
+        
       </View>
     </View>
   );
@@ -39,7 +34,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontSize: 32,
-    color: "#15EA4A",
+    color: "white",
   },
   leftArea: {
     flex: 2,

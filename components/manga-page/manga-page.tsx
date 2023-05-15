@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   View,
-  FlatList,
   StyleSheet,
   StatusBar,
 } from "react-native";
@@ -14,7 +12,7 @@ export default function MangaPage() {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       <View style={styles.header}>
-        <Header title="Manga list" reload={() => {}} />
+        <Header title="Manga List" reload={() => {}} />
       </View>
       <View style={styles.list}>
         <MangaList></MangaList>
@@ -34,5 +32,6 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 9,
+    backgroundColor: "#4e524e",
   },
 });

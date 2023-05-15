@@ -12,7 +12,7 @@ export default function Button({
 }) {
   const getButtonStyle = () => {
     if (selected) {
-      return { ...styles.button, backgroundColor: "#15EA4A" };
+      return { ...styles.button, backgroundColor: "#47ff75" };
     } else {
       return styles.button;
     }
@@ -22,7 +22,7 @@ export default function Button({
     if (selected) {
       return { color: "#2A2525" };
     } else {
-      return { color: "#15EA4A" };
+      return { color: "#47ff75" };
     }
   };
 

@@ -1,6 +1,7 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import MangaPage from "./mangaPage/manga-page";
+import MangaPage from "./manga-page/manga-page";
+
 
 const MainBottomNavigation = createMaterialBottomTabNavigator();
 
@@ -8,7 +9,7 @@ export default function BottomNavigation() {
   return (
     <MainBottomNavigation.Navigator
       initialRouteName="MangaListRoute"
-      activeColor="#15EA4A"
+      activeColor="#47ff75"
       inactiveColor="#FFFFFF"
       barStyle={{ backgroundColor: "#2A2525" }}
     >
